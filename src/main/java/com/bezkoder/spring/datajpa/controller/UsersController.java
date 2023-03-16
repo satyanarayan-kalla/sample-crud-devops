@@ -18,25 +18,24 @@ public class UsersController {
 
 	@Autowired
 	UserRepository userRepository;
+	String status = "SYSTEM-DOWN";
 
-	@GetMapping("/live/{id}")
-	public ResponseEntity<List<User>> getAllTutorials(@PathVariable("id") long id) {
+	@GetMapping("/live")
+	public ResponseEntity<String> getUsers() {
 		try {
 			List<User> users = new ArrayList<User>();
 
-			if (id == 0)
-				userRepository.findAll().forEach(users::add);
-			else
-				userRepository.findByUserId(id).forEach(users::add);
+			userRepository.findAll().forEach(users::add);
 
-			if (users.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			if (!users.isEmpty()) {
+				status = "OK";
+				return new ResponseEntity<>(status, HttpStatus.OK);
 			}
 
-			return new ResponseEntity<>(users, HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(status, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+		return new ResponseEntity<>(status, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 
