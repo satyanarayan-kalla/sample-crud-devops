@@ -1,4 +1,4 @@
-# Spring Boot JPA MySQL - Building Rest CRUD API example
+# Spring Boot JPA MySQL - Building Rest DB Connection Test example
 
 
 > [React + Spring Boot + MySQL example](https://www.bezkoder.com/react-spring-boot-crud/)
